@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 
@@ -8,6 +8,8 @@ const formSchema = yup.object().shape({
 });
 
 export const Login = () => {
+
+    const [buttonDisable, setButtonDisable] = useState(true); 
 
     const [formState, setFormState] = useState({
         username: '',
@@ -20,6 +22,12 @@ export const Login = () => {
     });
 
     const [user, setUser] = useState([]);
+
+    useEffect(() => {
+        formSchema.isValid(formState).then(valid => {
+            setButtonDisable(!valid);
+        })
+    }, [formState]);
 
     const validate = (e) => {
         yup
@@ -41,7 +49,7 @@ export const Login = () => {
     };
 
     const inputChange = (e) => {
-        e.presist();
+        e.persist();
         validate(e);
         setFormState({...formState, [e.target.name]: e.target.value});
     };
@@ -89,7 +97,7 @@ export const Login = () => {
                 {errorState.password.length > 0 ? (<p>{errorState.password}</p>) : null}
             </label>
 
-            <button>Login</button>
+            <button disabled={buttonDisable}>Login</button>
 
         </form>
     )
