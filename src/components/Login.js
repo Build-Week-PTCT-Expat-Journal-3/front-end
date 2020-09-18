@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const formSchema = yup.object().shape({
     username: yup.string().required('Enter your username'),
@@ -71,34 +72,36 @@ export const Login = () => {
     };
 
     return (
-        <form onSubmit={formSubmit}>
-            
-            <label htmlFor='username'>
-                <input 
-                    type='text'
-                    name='username'
-                    id='username'
-                    placeholder = 'Username'
-                    value={formState.username} 
-                    onChange={inputChange} 
-                />
-                {errorState.username.length > 0 ? (<p>{errorState.username}</p>) : null}
-            </label>
-            
-            <label htmlFor='password'>
-                <input 
-                    type='password' 
-                    name='password'
-                    id='password'
-                    placeholder= 'Password'
-                    value={formState.password} 
-                    onChange={inputChange} 
-                />
-                {errorState.password.length > 0 ? (<p>{errorState.password}</p>) : null}
-            </label>
 
-            <button disabled={buttonDisable}>Login</button>
-
-        </form>
+        <div>
+            <form onSubmit={formSubmit}>
+                <label htmlFor='username'>
+                    <input 
+                        type='text'
+                        name='username'
+                        id='username'
+                        placeholder = 'Username'
+                        value={formState.username} 
+                        onChange={inputChange} 
+                    />
+                    {errorState.username.length > 0 ? (<p>{errorState.username}</p>) : null}
+                </label>
+                <label htmlFor='password'>
+                    <input 
+                        type='password' 
+                        name='password'
+                        id='password'
+                        placeholder= 'Password'
+                        value={formState.password} 
+                        onChange={inputChange} 
+                    />
+                    {errorState.password.length > 0 ? (<p>{errorState.password}</p>) : null}
+                </label>
+                <button disabled={buttonDisable}>Login</button>
+            </form>
+            <div>
+                <p>Don't have an account? <Link to="./register">Sign Up</Link></p>
+            </div>
+        </div>
     )
 }
