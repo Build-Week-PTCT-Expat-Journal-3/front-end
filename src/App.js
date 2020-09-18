@@ -6,6 +6,7 @@ import {NavBar} from './components/NavBar';
 import {Login} from './components/Login';
 import {Dashboard} from './components/Dashboard';
 import {Register} from './components/Register';
+import {Profile} from './components/Profile';
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
 
       <Route path="/dashboard">
         <Dashboard />
+      </Route>
+    
+      <Route path="/profile">
+        <Profile />
       </Route>
     </div>
   );
