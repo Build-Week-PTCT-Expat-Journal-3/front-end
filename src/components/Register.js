@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const formSchema = yup.object().shape({
     name: yup.string().required('Enter your full name'),
@@ -127,6 +128,9 @@ export const Register = () => {
                 </label>
                 <button disabled={buttonDisable}>Sign up</button>
             </form>
+            <div>
+                <p>Have an account already? <Link to="./">Log in</Link></p>
+            </div>
         </div>
     )
 }
