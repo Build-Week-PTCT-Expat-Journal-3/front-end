@@ -3,7 +3,11 @@ import React from 'react';
 export const Register = () => {
     return (
         <div>
-            Register
+            <form>
+                <label>
+                    <input />
+                </label>
+            </form>
         </div>
     )
 }
