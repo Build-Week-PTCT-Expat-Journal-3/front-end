@@ -1,8 +1,8 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import * as yup from 'yup';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import {axiosWithAuth} from '../utils/axiosWithAuth';
+import { Link, useHistory } from 'react-router-dom';
+import {GlobalContext} from "../contexts/GlobalState";
 
 const formSchema = yup.object().shape({
     username: yup.string().required('Enter your username'),
@@ -11,9 +11,9 @@ const formSchema = yup.object().shape({
 
 
 export const Login = () => {
-
+    const {setLoggedState} = useContext(GlobalContext);
     const [buttonDisable, setButtonDisable] = useState(true); 
-
+    const { push } = useHistory();
     const [formState, setFormState] = useState({
         username: '',
         password: ''
@@ -24,7 +24,6 @@ export const Login = () => {
         password: ''
     });
 
-    const [user, setUser] = useState([]);
 
     useEffect(() => {
         formSchema.isValid(formState).then(valid => {
@@ -51,26 +50,25 @@ export const Login = () => {
             
     };
 
-    const inputChange = (e) => {
+    const inputChange = e => {
         e.persist();
         validate(e);
         setFormState({...formState, [e.target.name]: e.target.value});
     };
 
-    const formSubmit = (e) => {
+    const formSubmit = e => {
         e.preventDefault();
-        console.log('user login successful');
-        axios
-            .post("https://reqres.in/api/login", formState)
-            .then( res => {
-                console.log('Submit Res: ', res.data);
-                setUser([...user, res.data]);
-                setFormState({
-                    username: '',
-                    password: ''
-                })
-            })
-            .catch( err => console.log(err));
+        axiosWithAuth()
+        .post("auth/login", formState)
+        .then(res => {
+          window.localStorage.setItem("token", res.data.token)
+          localStorage.setItem("id", res.data.id)
+      
+          push("/protected");
+        })
+        .catch( err => {
+           console.log(err)
+        })
     };
 
     return (
