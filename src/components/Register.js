@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Container, TextField } from '@material-ui/core';
 
 const formSchema = yup.object().shape({
     name: yup.string().required('Enter your full name'),
@@ -81,56 +82,73 @@ export const Register = () => {
 
     return (
         <div>
-            <form onSubmit={formSubmit}>
-                <label htmlFor='name'>
-                    <input 
-                        type='text'
-                        name='name'
-                        id='name'
-                        placeholder='Full Name'
-                        value={formState.name}
-                        onChange={inputChange}
-                    />
-                    {errorState.name.length > 0 ? (<p>{errorState.name}</p>) : null}
-                </label>
-                <label htmlFor='email'>
-                    <input 
-                        type='email'
-                        name='email'
-                        id='email'
-                        placeholder='Email'
-                        value={formState.email}
-                        onChange={inputChange}
-                    />
-                    {errorState.email.length > 0 ? (<p>{errorState.email}</p>) : null}
-                </label>
-                <label htmlFor='username'>
-                    <input 
-                        type='text'
-                        name='username'
-                        id='username'
-                        placeholder='Username'
-                        value={formState.username}
-                        onChange={inputChange}
-                    />
-                    {errorState.username.length > 0 ? (<p>{errorState.username}</p>) : null}
-                </label>
-                <label htmlFor='password'>
-                    <input 
-                        type='password'
-                        name='password'
-                        id='password'
-                        placeholder='Password'
-                        value={formState.password}
-                        onChange={inputChange}
-                    />
-                    {errorState.password.length > 0 ? (<p>{errorState.password}</p>) : null}
-                </label>
-                <button disabled={buttonDisable}>Sign up</button>
-            </form>
-            <div>
-                <p>Have an account already? <Link to="./">Log in</Link></p>
-            </div>
+            <Container maxWidth='sm' style={styles.registerForm}>
+                <form onSubmit={formSubmit}>
+                        <TextField 
+                            variant='outlined'
+                            type='text'
+                            name='name'
+                            id='name'
+                            label='Full Name'
+                            value={formState.name}
+                            onChange={inputChange}
+                            error={errorState.name.length > 0 ? true : null}
+                            helperText={errorState.name.length > 0 ? (errorState.name) : null}
+                        />
+                        <TextField 
+                            variant='outlined'
+                            type='email'
+                            name='email'
+                            id='email'
+                            label='Email'
+                            value={formState.email}
+                            onChange={inputChange}
+                            error={errorState.email.length > 0 ? true : null}
+                            helperText={errorState.email.length > 0 ? (errorState.email) : null}
+                        />
+                        <TextField  
+                            variant='outlined'
+                            type='text'
+                            name='username'
+                            id='username'
+                            label='Username'
+                            value={formState.username}
+                            onChange={inputChange}
+                            error={errorState.username.length > 0 ? true : null}
+                            helperText={errorState.username.length > 0 ? (errorState.username) : null}
+                        />
+                        <TextField  
+                            variant='outlined'
+                            type='password'
+                            name='password'
+                            id='password'
+                            label='Password'
+                            value={formState.password}
+                            onChange={inputChange}
+                            error={errorState.password.length > 0 ? true : null}
+                            helperText={errorState.password.length > 0 ? (errorState.password) : null}
+                        />
+                        <br/>
+                    <button disabled={buttonDisable}>Sign up</button>
+                </form>
+            </Container>
+            <Container maxWidth='sm' style={styles.registerFooter}>
+                <div>
+                    <p>Have an account already?<Link to="./">Log in</Link></p>
+                </div>
+            </Container>
         </div>
     )
+}
+
+const styles = {
+    registerForm: {
+        backgroundColor: 'gainsboro',
+
+    },
+
+    registerFooter: {
+        backgroundColor: 'gainsboro',
+
+    }
 }
