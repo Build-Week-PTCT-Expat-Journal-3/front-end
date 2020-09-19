@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Container, TextField } from '@material-ui/core';
+import { findByLabelText } from '@testing-library/react';
 
 const formSchema = yup.object().shape({
     name: yup.string().required('Enter your full name'),
@@ -82,8 +83,11 @@ export const Register = () => {
 
     return (
         <div>
-            <Container maxWidth='sm' style={styles.registerForm}>
+            <Container maxWidth='xs' style={styles.registerForm}>
+                <h1>Expat Journal</h1>
+                <h2 style={styles.h2}>Sign up to share your memories with friends and family</h2>
                 <form onSubmit={formSubmit}>
+                    <div>
                         <TextField 
                             variant='outlined'
                             type='text'
@@ -95,6 +99,9 @@ export const Register = () => {
                             error={errorState.name.length > 0 ? true : null}
                             helperText={errorState.name.length > 0 ? (errorState.name) : null}
                         />
+                    </div>
+                    <br/>
+                    <div>
                         <TextField 
                             variant='outlined'
                             type='email'
@@ -106,6 +113,9 @@ export const Register = () => {
                             error={errorState.email.length > 0 ? true : null}
                             helperText={errorState.email.length > 0 ? (errorState.email) : null}
                         />
+                    </div>
+                    <br/>
+                    <div>
                         <TextField  
                             variant='outlined'
                             type='text'
@@ -117,6 +127,9 @@ export const Register = () => {
                             error={errorState.username.length > 0 ? true : null}
                             helperText={errorState.username.length > 0 ? (errorState.username) : null}
                         />
+                    </div>
+                    <br/>
+                    <div>
                         <TextField  
                             variant='outlined'
                             type='password'
@@ -128,13 +141,14 @@ export const Register = () => {
                             error={errorState.password.length > 0 ? true : null}
                             helperText={errorState.password.length > 0 ? (errorState.password) : null}
                         />
+                    </div>
                         <br/>
                     <button disabled={buttonDisable}>Sign up</button>
                 </form>
             </Container>
-            <Container maxWidth='sm' style={styles.registerFooter}>
+            <Container maxWidth='xs' style={styles.registerFooter}>
                 <div>
-                    <p>Have an account already?<Link to="./">Log in</Link></p>
+                    <p>Have an account? <Link to="./" style={styles.link}>Log in</Link></p>
                 </div>
             </Container>
         </div>
@@ -142,13 +156,29 @@ export const Register = () => {
 }
 
 const styles = {
+
+    h1: {},
+
+    h2: {
+        color: 'lightgrey'
+    },
+
     registerForm: {
-        backgroundColor: 'gainsboro',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '1%',
+        backgroundColor: 'mintcream',
 
     },
 
     registerFooter: {
-        backgroundColor: 'gainsboro',
+        marginTop: '1%',
+        padding: '.5%',
+        backgroundColor: 'mintcream',
 
+    },
+
+    link: {
+        textDecoration: 'none'
     }
 }
