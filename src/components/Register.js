@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Container, TextField } from '@material-ui/core';
+import { Container, TextField, Button } from '@material-ui/core';
 import { findByLabelText } from '@testing-library/react';
 
 const formSchema = yup.object().shape({
@@ -84,8 +84,10 @@ export const Register = () => {
     return (
         <div>
             <Container maxWidth='xs' style={styles.registerForm}>
-                <h1>Expat Journal</h1>
-                <h2 style={styles.h2}>Sign up to share your memories with friends and family</h2>
+                <h1 style={styles.h1}>Expat Journal</h1>
+                <div>
+                    <h2 style={styles.h2}>Sign up to share your memories with friends and family</h2>
+                </div>
                 <form onSubmit={formSubmit}>
                     <div>
                         <TextField 
@@ -143,7 +145,14 @@ export const Register = () => {
                         />
                     </div>
                         <br/>
-                    <button disabled={buttonDisable}>Sign up</button>
+                    <Button 
+                        type='submit'
+                        variant='contained'
+                        color='primary' 
+                        disabled={buttonDisable}
+                        style={styles.button}>
+                            Sign up
+                    </Button>
                 </form>
             </Container>
             <Container maxWidth='xs' style={styles.registerFooter}>
@@ -157,10 +166,13 @@ export const Register = () => {
 
 const styles = {
 
-    h1: {},
+    h1: {
+        margin: '.67em 0 0 0'
+    },
 
     h2: {
-        color: 'lightgrey'
+        padding: '0 23.5%',
+        color: 'lightgrey',
     },
 
     registerForm: {
@@ -180,5 +192,9 @@ const styles = {
 
     link: {
         textDecoration: 'none'
+    },
+
+    button: {
+        width: '53%',
     }
 }
