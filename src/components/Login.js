@@ -59,16 +59,17 @@ export const Login = () => {
     const formSubmit = e => {
         e.preventDefault();
         axiosWithAuth()
-        .post("auth/login", formState)
-        .then(res => {
-          window.localStorage.setItem("token", res.data.token)
-          localStorage.setItem("id", res.data.id)
-      
-          push("/protected");
-        })
-        .catch( err => {
-           console.log(err)
-        })
+            .post("https://expat-journalp16.herokuapp.com/api/auth/login", formState)
+            .then(res => {
+                console.log('New User: ', res.data)
+                window.localStorage.setItem("token", res.data.token)
+                localStorage.setItem("id", res.data.id)
+        
+                push("/protected");
+            })
+            .catch( err => {
+                console.log(err)
+             })
     };
 
     return (
