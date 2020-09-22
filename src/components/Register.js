@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { Container, TextField, Button } from '@material-ui/core';
+import { findByLabelText } from '@testing-library/react';
 
 const formSchema = yup.object().shape({
-    name: yup.string().required('Enter your full name'),
-    email: yup.string().email('Enter a valid email address').required('Enter an email address'),
     username: yup.string().required('Enter a username'),
-    password: yup.string().required('Enter a password')
+    password: yup.string().required('Enter a password'),
+    firstname: yup.string().required('Enter your first name'),
+    location: yup.string().required('Enter your location')
 })
 
 export const Register = () => {
@@ -14,17 +17,17 @@ export const Register = () => {
     const [buttonDisable, setButtonDisable] = useState(true);
     
     const [formState, setFormState] = useState({
-        name: '',
-        email: '',
         username: '',
-        password: ''
+        password: '',
+        firstname: '',
+        location: ''
     })
 
     const [errorState, setErrorState] = useState({
-        name: '',
-        email: '',
         username: '',
-        password: ''
+        password: '',
+        firstname: '',
+        location: ''
     })
 
     const [user, setUser] = useState([]);
@@ -64,15 +67,15 @@ export const Register = () => {
         e.preventDefault();
         console.log('User Registration Successful');
         axios
-            .post("https://reqres.in/api/users", formState)
+            .post('https://expat-journalp16.herokuapp.com/api/auth/register', formState)
             .then( res => {
                 console.log(res);
                 setUser([...user, res.data]);
                 setFormState({
-                    name: '',
-                    email: '',
+                    username: '',
                     password: '',
-                    terms: ''
+                    firstname: '',
+                    location: ''
                 })
             })
             .catch( err => console.log(err));
@@ -80,53 +83,114 @@ export const Register = () => {
 
     return (
         <div>
-            <form onSubmit={formSubmit}>
-                <label htmlFor='name'>
-                    <input 
-                        type='text'
-                        name='name'
-                        id='name'
-                        placeholder='Full Name'
-                        value={formState.name}
-                        onChange={inputChange}
-                    />
-                    {errorState.name.length > 0 ? (<p>{errorState.name}</p>) : null}
-                </label>
-                <label htmlFor='email'>
-                    <input 
-                        type='email'
-                        name='email'
-                        id='email'
-                        placeholder='Email'
-                        value={formState.email}
-                        onChange={inputChange}
-                    />
-                    {errorState.email.length > 0 ? (<p>{errorState.email}</p>) : null}
-                </label>
-                <label htmlFor='username'>
-                    <input 
-                        type='text'
-                        name='username'
-                        id='username'
-                        placeholder='Username'
-                        value={formState.username}
-                        onChange={inputChange}
-                    />
-                    {errorState.username.length > 0 ? (<p>{errorState.username}</p>) : null}
-                </label>
-                <label htmlFor='password'>
-                    <input 
-                        type='password'
-                        name='password'
-                        id='password'
-                        placeholder='Password'
-                        value={formState.password}
-                        onChange={inputChange}
-                    />
-                    {errorState.password.length > 0 ? (<p>{errorState.password}</p>) : null}
-                </label>
-                <button disabled={buttonDisable}>Sign up</button>
-            </form>
+            <Container maxWidth='xs' style={styles.registerForm}>
+                <h1 style={styles.h1}>Expat Journal</h1>
+                <h2 style={styles.h2}>Sign up to share your memories with friends and family</h2>
+                <form onSubmit={formSubmit}>
+                    <div>
+                        <TextField 
+                            variant='outlined'
+                            type='text'
+                            name='username'
+                            label='Username'
+                            value={formState.username}
+                            onChange={inputChange}
+                            error={errorState.username.length > 0 ? true : null}
+                            helperText={errorState.username.length > 0 ? (errorState.username) : null}
+                        />
+                    </div>
+                    <br/>
+                    <div>
+                        <TextField 
+                            variant='outlined'
+                            type='password'
+                            name='password'
+                            label='Password'
+                            value={formState.password}
+                            onChange={inputChange}
+                            error={errorState.password.length > 0 ? true : null}
+                            helperText={errorState.password.length > 0 ? (errorState.password) : null}
+                        />
+                    </div>
+                    <br/>
+                    <div>
+                        <TextField  
+                            variant='outlined'
+                            type='text'
+                            name='firstname'
+                            label='First Name'
+                            value={formState.firstname}
+                            onChange={inputChange}
+                            error={errorState.firstname.length > 0 ? true : null}
+                            helperText={errorState.firstname.length > 0 ? (errorState.firstname) : null}
+                        />
+                    </div>
+                    <br/>
+                    <div>
+                        <TextField  
+                            variant='outlined'
+                            type='text'
+                            name='location'
+                            label='Location'
+                            value={formState.location}
+                            onChange={inputChange}
+                            error={errorState.location.length > 0 ? true : null}
+                            helperText={errorState.location.length > 0 ? (errorState.location) : null}
+                        />
+                    </div>
+                        <br/>
+                    <Button 
+                        type='submit'
+                        variant='contained'
+                        color='primary' 
+                        disabled={buttonDisable}
+                        style={styles.button}>
+                            Sign up
+                    </Button>
+                </form>
+            </Container>
+            <Container maxWidth='xs' style={styles.registerFooter}>
+                <div>
+                    <p>Have an account? <Link to="./" style={styles.link}>Log in</Link></p>
+                </div>
+            </Container>
         </div>
     )
+}
+
+const styles = {
+
+    h1: {
+        margin: '.67em 0 0 0',
+        
+    },
+
+    h2: {
+        padding: '0 23.5%',
+        color: 'lightgrey',
+    },
+
+    registerForm: {
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '1%',
+        backgroundColor: 'mintcream'
+
+    },
+
+    registerFooter: {
+        marginTop: '1%',
+        padding: '.5%',
+        backgroundColor: 'mintcream',
+
+    },
+
+    link: {
+        textDecoration: 'none'
+    },
+
+    button: {
+        width: '100%',
+        maxWidth: '56%'
+    }
 }
