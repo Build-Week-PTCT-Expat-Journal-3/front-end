@@ -6,10 +6,10 @@ import { Container, TextField, Button } from '@material-ui/core';
 import { findByLabelText } from '@testing-library/react';
 
 const formSchema = yup.object().shape({
-    name: yup.string().required('Enter your full name'),
-    email: yup.string().email('Enter a valid email address').required('Enter an email address'),
     username: yup.string().required('Enter a username'),
-    password: yup.string().required('Enter a password')
+    password: yup.string().required('Enter a password'),
+    firstname: yup.string().required('Enter your first name'),
+    location: yup.string().required('Enter your location')
 })
 
 export const Register = () => {
@@ -17,17 +17,17 @@ export const Register = () => {
     const [buttonDisable, setButtonDisable] = useState(true);
     
     const [formState, setFormState] = useState({
-        name: '',
-        email: '',
         username: '',
-        password: ''
+        password: '',
+        firstname: '',
+        location: ''
     })
 
     const [errorState, setErrorState] = useState({
-        name: '',
-        email: '',
         username: '',
-        password: ''
+        password: '',
+        firstname: '',
+        location: ''
     })
 
     const [user, setUser] = useState([]);
@@ -67,15 +67,15 @@ export const Register = () => {
         e.preventDefault();
         console.log('User Registration Successful');
         axios
-            .post("https://reqres.in/api/users", formState)
+            .post('https://expat-journalp16.herokuapp.com/api/auth/register', formState)
             .then( res => {
                 console.log(res);
                 setUser([...user, res.data]);
                 setFormState({
-                    name: '',
-                    email: '',
+                    username: '',
                     password: '',
-                    username: ''
+                    firstname: '',
+                    location: ''
                 })
             })
             .catch( err => console.log(err));
@@ -85,44 +85,13 @@ export const Register = () => {
         <div>
             <Container maxWidth='xs' style={styles.registerForm}>
                 <h1 style={styles.h1}>Expat Journal</h1>
-                <div>
-                    <h2 style={styles.h2}>Sign up to share your memories with friends and family</h2>
-                </div>
+                <h2 style={styles.h2}>Sign up to share your memories with friends and family</h2>
                 <form onSubmit={formSubmit}>
                     <div>
                         <TextField 
                             variant='outlined'
                             type='text'
-                            name='name'
-                            id='name'
-                            label='Full Name'
-                            value={formState.name}
-                            onChange={inputChange}
-                            error={errorState.name.length > 0 ? true : null}
-                            helperText={errorState.name.length > 0 ? (errorState.name) : null}
-                        />
-                    </div>
-                    <br/>
-                    <div>
-                        <TextField 
-                            variant='outlined'
-                            type='email'
-                            name='email'
-                            id='email'
-                            label='Email'
-                            value={formState.email}
-                            onChange={inputChange}
-                            error={errorState.email.length > 0 ? true : null}
-                            helperText={errorState.email.length > 0 ? (errorState.email) : null}
-                        />
-                    </div>
-                    <br/>
-                    <div>
-                        <TextField  
-                            variant='outlined'
-                            type='text'
                             name='username'
-                            id='username'
                             label='Username'
                             value={formState.username}
                             onChange={inputChange}
@@ -132,16 +101,41 @@ export const Register = () => {
                     </div>
                     <br/>
                     <div>
-                        <TextField  
+                        <TextField 
                             variant='outlined'
                             type='password'
                             name='password'
-                            id='password'
                             label='Password'
                             value={formState.password}
                             onChange={inputChange}
                             error={errorState.password.length > 0 ? true : null}
                             helperText={errorState.password.length > 0 ? (errorState.password) : null}
+                        />
+                    </div>
+                    <br/>
+                    <div>
+                        <TextField  
+                            variant='outlined'
+                            type='text'
+                            name='firstname'
+                            label='First Name'
+                            value={formState.firstname}
+                            onChange={inputChange}
+                            error={errorState.firstname.length > 0 ? true : null}
+                            helperText={errorState.firstname.length > 0 ? (errorState.firstname) : null}
+                        />
+                    </div>
+                    <br/>
+                    <div>
+                        <TextField  
+                            variant='outlined'
+                            type='text'
+                            name='location'
+                            label='Location'
+                            value={formState.location}
+                            onChange={inputChange}
+                            error={errorState.location.length > 0 ? true : null}
+                            helperText={errorState.location.length > 0 ? (errorState.location) : null}
                         />
                     </div>
                         <br/>
@@ -167,7 +161,8 @@ export const Register = () => {
 const styles = {
 
     h1: {
-        margin: '.67em 0 0 0'
+        margin: '.67em 0 0 0',
+        
     },
 
     h2: {
@@ -178,7 +173,8 @@ const styles = {
     registerForm: {
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: 'mintcream',
+        padding: '1%',
+        backgroundColor: 'mintcream'
 
     },
 
