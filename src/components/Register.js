@@ -75,7 +75,7 @@ export const Register = () => {
                     name: '',
                     email: '',
                     password: '',
-                    terms: ''
+                    username: ''
                 })
             })
             .catch( err => console.log(err));
@@ -178,7 +178,6 @@ const styles = {
     registerForm: {
         display: 'flex',
         flexDirection: 'column',
-        padding: '1%',
         backgroundColor: 'mintcream',
 
     },
@@ -195,6 +194,7 @@ const styles = {
     },
 
     button: {
-        width: '53%',
+        width: '100%',
+        maxWidth: '56%'
     }
 }
