@@ -83,11 +83,10 @@ export const Register = () => {
 
     return (
         <div>
-            <Container maxWidth='xs' style={styles.registerForm}>
+            <Container maxWidth='xs' style={styles.registerContainer}>
                 <h1 style={styles.h1}>Expat Journal</h1>
                 <h2 style={styles.h2}>Sign up to share your memories with friends and family</h2>
-                <form onSubmit={formSubmit}>
-                    <div>
+                <form onSubmit={formSubmit} style={styles.registerForm}>
                         <TextField 
                             variant='outlined'
                             type='text'
@@ -98,9 +97,7 @@ export const Register = () => {
                             error={errorState.username.length > 0 ? true : null}
                             helperText={errorState.username.length > 0 ? (errorState.username) : null}
                         />
-                    </div>
                     <br/>
-                    <div>
                         <TextField 
                             variant='outlined'
                             type='password'
@@ -111,9 +108,7 @@ export const Register = () => {
                             error={errorState.password.length > 0 ? true : null}
                             helperText={errorState.password.length > 0 ? (errorState.password) : null}
                         />
-                    </div>
                     <br/>
-                    <div>
                         <TextField  
                             variant='outlined'
                             type='text'
@@ -124,9 +119,7 @@ export const Register = () => {
                             error={errorState.firstname.length > 0 ? true : null}
                             helperText={errorState.firstname.length > 0 ? (errorState.firstname) : null}
                         />
-                    </div>
                     <br/>
-                    <div>
                         <TextField  
                             variant='outlined'
                             type='text'
@@ -137,7 +130,6 @@ export const Register = () => {
                             error={errorState.location.length > 0 ? true : null}
                             helperText={errorState.location.length > 0 ? (errorState.location) : null}
                         />
-                    </div>
                         <br/>
                     <Button 
                         type='submit'
@@ -150,9 +142,7 @@ export const Register = () => {
                 </form>
             </Container>
             <Container maxWidth='xs' style={styles.registerFooter}>
-                <div>
-                    <p>Have an account? <Link to="./" style={styles.link}>Log in</Link></p>
-                </div>
+                <p>Have an account? <Link to="./" style={styles.link}>Log in</Link></p>
             </Container>
         </div>
     )
@@ -162,15 +152,20 @@ const styles = {
 
     h1: {
         margin: '.67em 0 0 0',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: '0 20%'
         
     },
 
     h2: {
-        padding: '0 23.5%',
+        justifyContent: 'center',
+        padding: '0 20%',
+        textAlign: 'center',
         color: 'lightgrey',
     },
 
-    registerForm: {
+    registerContainer: {
         display: 'flex',
         flexDirection: 'column',
         padding: '1%',
@@ -178,7 +173,16 @@ const styles = {
 
     },
 
+    registerForm: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '0 20%'
+    },
+
     registerFooter: {
+        display: 'flex',
+        justifyContent: 'center',
         marginTop: '1%',
         padding: '.5%',
         backgroundColor: 'mintcream',
@@ -191,6 +195,6 @@ const styles = {
 
     button: {
         width: '100%',
-        maxWidth: '56%'
+
     }
 }
