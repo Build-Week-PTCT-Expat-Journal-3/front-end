@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect} from 'react';
 import * as yup from 'yup';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import { Link, useHistory } from 'react-router-dom';
-import {GlobalContext} from "../contexts/GlobalState";
+
 import { Button, Container, TextField } from '@material-ui/core';
+
 
 const formSchema = yup.object().shape({
     username: yup.string().required('Enter your username'),
@@ -12,7 +13,6 @@ const formSchema = yup.object().shape({
 
 
 export const Login = () => {
-    const {setLoggedState} = useContext(GlobalContext);
     const [buttonDisable, setButtonDisable] = useState(true); 
     const { push } = useHistory();
     const [formState, setFormState] = useState({
