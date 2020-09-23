@@ -76,9 +76,12 @@ export const Login = () => {
     return (
 
         <div>
-            <Container maxWidth='xs'>
-                <form onSubmit={formSubmit}>
+            <Container maxWidth='xs' style={styles.loginContainer}>
+                <h1 style={styles.h1}>Expat Journal</h1>
+                <form onSubmit={formSubmit} style={styles.loginForm}>
+                    <div>
                         <TextField 
+                            variant='outlined'
                             type='text'
                             name='username'
                             label= 'Username'
@@ -87,7 +90,11 @@ export const Login = () => {
                             error={errorState.username.length > 0 ? true : null}
                             helperText={errorState.username.length > 0 ? (errorState.username) : null} 
                         />
+                    </div>
+                    <br/>
+                    <div>
                         <TextField 
+                            variant='outlined'
                             type='password' 
                             name='password'
                             id='password'
@@ -97,73 +104,71 @@ export const Login = () => {
                             error={errorState.password.length > 0 ? true : null}
                             helperText={errorState.password.length > 0 ? (errorState.password) : null}
                         />
-                    <Button type='submit' variant='contained' disabled={buttonDisable}>Login</Button>
+                    </div>
+                    <br/>
+                    <Button 
+                        type='submit' 
+                        variant='contained' 
+                        color='primary'
+                        disabled={buttonDisable}
+                        style={styles.button}>
+                            Login
+                    </Button>
                 </form>
             </Container>
-            <Container maxWidth='xs'>                
-                <p>Don't have an account? <Link to="./register">Sign Up</Link></p>
+            <Container maxWidth='xs' style={styles.loginFooter}>                
+                <p>Don't have an account? <Link to="./register" style={styles.link}>Sign Up</Link></p>
             </Container>
         </div>
     )
 }
 
 
-// FOR REFERENCE
-// 
-// const styles = {
+const styles = {
 
-//     h1: {
-//         margin: '0',
-//         justifyContent: 'center',
-//         textAlign: 'center',
-//         padding: '0 10%',
-//         fontSize: '4rem',
-//         fontFamily: 'Brush Script MT, Brush Script Std, cursive'
+    h1: {
+        margin: '0 0 5% 0',
+        textAlign: 'center',
+        padding: '0 10%',
+        fontSize: '4rem',
+        fontFamily: 'Brush Script MT, Brush Script Std, cursive'
         
-//     },
+    },
 
-//     h2: {
-//         justifyContent: 'center',
-//         padding: '0 10%',
-//         textAlign: 'center',
-//         fontSize: '1.25rem',
-//         color: 'darkgrey',
-//     },
+    loginContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        maxWidth: '350px',
+        padding: '1% 2% 2% 2%',
+        border: '1px solid lightgrey',
+        backgroundColor: 'mintcream'
 
-//     registerContainer: {
-//         display: 'flex',
-//         flexDirection: 'column',
-//         maxWidth: '350px',
-//         padding: '2%',
-//         border: '1px solid lightgrey',
-//         backgroundColor: 'mintcream'
+    },
 
-//     },
+    loginForm: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '0 10%'
+    },
 
-//     registerForm: {
-//         display: 'flex',
-//         flexDirection: 'column',
-//         justifyContent: 'center',
-//         padding: '0 10%'
-//     },
+    loginFooter: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '1%',
+        padding: '.5%',
+        maxWidth: '350px',
+        border: '1px solid lightgrey',
+        backgroundColor: 'mintcream',
 
-//     registerFooter: {
-//         display: 'flex',
-//         justifyContent: 'center',
-//         marginTop: '1%',
-//         padding: '.5%',
-//         maxWidth: '350px',
-//         border: '1px solid lightgrey',
-//         backgroundColor: 'mintcream',
+    },
 
-//     },
+    link: {
+        textDecoration: 'none'
+    },
 
-//     link: {
-//         textDecoration: 'none'
-//     },
+    button: {
+        width: '100%',
 
-//     button: {
-//         width: '100%',
-
-//     }
-// }
+    }
+}
