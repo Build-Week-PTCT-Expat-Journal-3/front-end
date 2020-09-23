@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, createContext} from 'react';
 import {  BrowserRouter, Route, Switch, Redirect  } from "react-router-dom";
 import './App.css';
 import PrivateRoute from "./utils/PrivateRoute";
@@ -8,9 +8,28 @@ import Dashboard from './components/Dashboard';
 import {Register} from './components/Register';
 import {Profile} from './components/Profile';
 
+export const GlobalContext = createContext();
+
+
+
 function App() {
+
+  const [isLogged, setLoggedState] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      localStorage.setItem("logged", true);
+      setLoggedState(true);
+    } else if (localStorage.getItem("token") === null) {
+      localStorage.setItem("logged", false);
+      setLoggedState(false);
+    }
+  }, [isLogged, setLoggedState]);
+
+
   return (
-    <>
+    <GlobalContext.Provider value={{isLogged, setLoggedState}}>
+    
       <NavBar />
 
     <BrowserRouter>
@@ -30,7 +49,7 @@ function App() {
           <Route exact path="/profile" component={Profile}/>
         </Switch>
         </BrowserRouter>
-</>
+</GlobalContext.Provider>
   );
 }
 
