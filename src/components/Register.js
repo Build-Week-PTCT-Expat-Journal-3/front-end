@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
-import { Link, useHistory } from 'react-router-dom';
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Container, TextField, Button } from '@material-ui/core';
+import { findByLabelText } from '@testing-library/react';
 
 const formSchema = yup.object().shape({
     username: yup.string().required('Enter a username'),
@@ -12,7 +13,7 @@ const formSchema = yup.object().shape({
 })
 
 export const Register = () => {
-    const {push} = useHistory();
+
     const [buttonDisable, setButtonDisable] = useState(true);
     
     const [formState, setFormState] = useState({
@@ -65,11 +66,10 @@ export const Register = () => {
     const formSubmit = (e) => {
         e.preventDefault();
         console.log('User Registration Successful');
-        axiosWithAuth()
-            .post('auth/register', formState)
+        axios
+            .post('https://expat-journalp16.herokuapp.com/api/auth/register', formState)
             .then( res => {
                 console.log(res);
-                push("/login")
                 setUser([...user, res.data]);
                 setFormState({
                     username: '',
@@ -83,11 +83,10 @@ export const Register = () => {
 
     return (
         <div>
-            <Container maxWidth='xs' style={styles.registerForm}>
+            <Container maxWidth='xs' style={styles.registerContainer}>
                 <h1 style={styles.h1}>Expat Journal</h1>
                 <h2 style={styles.h2}>Sign up to share your memories with friends and family</h2>
-                <form onSubmit={formSubmit}>
-                    <div>
+                <form onSubmit={formSubmit} style={styles.registerForm}>
                         <TextField 
                             variant='outlined'
                             type='text'
@@ -98,9 +97,7 @@ export const Register = () => {
                             error={errorState.username.length > 0 ? true : null}
                             helperText={errorState.username.length > 0 ? (errorState.username) : null}
                         />
-                    </div>
                     <br/>
-                    <div>
                         <TextField 
                             variant='outlined'
                             type='password'
@@ -111,9 +108,7 @@ export const Register = () => {
                             error={errorState.password.length > 0 ? true : null}
                             helperText={errorState.password.length > 0 ? (errorState.password) : null}
                         />
-                    </div>
                     <br/>
-                    <div>
                         <TextField  
                             variant='outlined'
                             type='text'
@@ -124,9 +119,7 @@ export const Register = () => {
                             error={errorState.firstname.length > 0 ? true : null}
                             helperText={errorState.firstname.length > 0 ? (errorState.firstname) : null}
                         />
-                    </div>
                     <br/>
-                    <div>
                         <TextField  
                             variant='outlined'
                             type='text'
@@ -137,7 +130,6 @@ export const Register = () => {
                             error={errorState.location.length > 0 ? true : null}
                             helperText={errorState.location.length > 0 ? (errorState.location) : null}
                         />
-                    </div>
                         <br/>
                     <Button 
                         type='submit'
@@ -150,9 +142,7 @@ export const Register = () => {
                 </form>
             </Container>
             <Container maxWidth='xs' style={styles.registerFooter}>
-                <div>
-                    <p>Have an account? <Link to="./" style={styles.link}>Log in</Link></p>
-                </div>
+                <p>Have an account? <Link to="./" style={styles.link}>Log in</Link></p>
             </Container>
         </div>
     )
@@ -161,28 +151,46 @@ export const Register = () => {
 const styles = {
 
     h1: {
-        margin: '.67em 0 0 0',
-        
+        margin: '0',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: '0 10%',
+        fontSize: '4rem',
+        fontFamily: 'Brush Script MT, Brush Script Std, cursive'
     },
 
     h2: {
-        padding: '0 23.5%',
-        color: 'lightgrey',
+        justifyContent: 'center',
+        padding: '0 10%',
+        textAlign: 'center',
+        fontSize: '1.25rem',
+        color: 'darkgrey',
+    },
+
+    registerContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        maxWidth: '350px',
+        padding: '2%',
+        border: '1px solid lightgrey',
+        backgroundColor: 'mintcream'
     },
 
     registerForm: {
         display: 'flex',
         flexDirection: 'column',
-        padding: '1%',
-        backgroundColor: 'mintcream'
-
+        justifyContent: 'center',
+        padding: '0 10%'
     },
 
     registerFooter: {
+        display: 'flex',
+        justifyContent: 'center',
         marginTop: '1%',
         padding: '.5%',
+        maxWidth: '350px',
+        border: '1px solid lightgrey',
         backgroundColor: 'mintcream',
-
     },
 
     link: {
@@ -191,6 +199,5 @@ const styles = {
 
     button: {
         width: '100%',
-        maxWidth: '56%'
     }
 }
