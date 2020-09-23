@@ -1,10 +1,9 @@
+  
 import React, { useState, useEffect} from 'react';
+import { Button, Container, TextField } from '@material-ui/core';
 import * as yup from 'yup';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import { Link, useHistory } from 'react-router-dom';
-
-import { Button, Container, TextField } from '@material-ui/core';
-
 
 const formSchema = yup.object().shape({
     username: yup.string().required('Enter your username'),
@@ -60,12 +59,12 @@ export const Login = () => {
     const formSubmit = e => {
         e.preventDefault();
         axiosWithAuth()
-            .post("https://expat-journalp16.herokuapp.com/api/auth/login", formState)
+        .post("https://expat-journalp16.herokuapp.com/api/auth/login", formState)
             .then(res => {
                 console.log('New User: ', res.data)
                 window.localStorage.setItem("token", res.data.token)
                 localStorage.setItem("id", res.data.id)
-        
+
                 push("/protected");
             })
             .catch( err => {
@@ -76,7 +75,7 @@ export const Login = () => {
     return (
 
         <div>
-            <Container maxWidth='xs' style={styles.loginContainer}>
+             <Container maxWidth='xs' style={styles.loginContainer}>
                 <h1 style={styles.h1}>Expat Journal</h1>
                 <form onSubmit={formSubmit} style={styles.loginForm}>
                     <div>
@@ -123,7 +122,6 @@ export const Login = () => {
     )
 }
 
-
 const styles = {
 
     h1: {
@@ -132,7 +130,7 @@ const styles = {
         padding: '0 10%',
         fontSize: '4rem',
         fontFamily: 'Brush Script MT, Brush Script Std, cursive'
-        
+
     },
 
     loginContainer: {
@@ -171,4 +169,4 @@ const styles = {
         width: '100%',
 
     }
-}
+} 

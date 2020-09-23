@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {Posts} from "./Posts";
+import {PostForm} from './PostForm';
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-function Dashboard() {
+export const Dashboard = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -14,6 +15,7 @@ function Dashboard() {
       axiosWithAuth()
         .get("/story")
         .then((response) => {
+          console.log(response);
           setPosts(response.data);
         })
         .catch((err) => console.log(err));
@@ -25,6 +27,7 @@ function Dashboard() {
     <div>
       Dashboard
       <br />
+      <PostForm />
       <br />
       {posts.map((post) => (
         <Posts key={post.id} post={post} />
@@ -32,5 +35,3 @@ function Dashboard() {
     </div>
   );
 }
-
-export default Dashboard;

@@ -29,3 +29,7 @@
 .App-link {
   color: #61dafb;
 }
+
+.posts {
+  border: 3px solid black;
+}
