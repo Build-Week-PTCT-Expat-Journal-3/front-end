@@ -8,11 +8,28 @@ import {Login} from './components/Login';
 import {Dashboard} from './components/Dashboard';
 import {Register} from './components/Register';
 import {Profile} from './components/Profile';
+import { axiosWithAuth } from './utils/axiosWithAuth';
 
 export const GlobalContext = createContext();
 
 function App() {
   const [isLogged, setLoggedState] = useState(false);
+  const [posts, setPosts] = useState([]);
+
+
+  useEffect(() => {
+    const getData = () => {
+      const token = window.localStorage.getItem("token");
+      axiosWithAuth()
+        .get("/story")
+        .then((response) => {
+          console.log(response, "stories");
+          setPosts(response.data);
+        })
+        .catch((err) => console.log(err));
+    };
+    getData();
+  }, [setPosts]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -25,7 +42,7 @@ function App() {
   }, [isLogged, setLoggedState]);
 
   return (
-    <GlobalContext.Provider value={{isLogged, setLoggedState}}>
+    <GlobalContext.Provider value={{isLogged, setLoggedState, posts, setPosts}}>
       <NavBar />
       <BrowserRouter>
         <Switch>
