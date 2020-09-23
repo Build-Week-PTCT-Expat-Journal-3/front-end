@@ -24,9 +24,7 @@ export const Dashboard = () => {
   }, [setPosts]);
 
   return (
-    <div>
-      Dashboard
-      <br />
+    <div className='posts-and-form'>
       <PostForm />
       <br />
       {posts.map((post) => (

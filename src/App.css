@@ -30,6 +30,9 @@
   color: #61dafb;
 }
 
-.posts {
-  border: 3px solid black;
+.posts-and-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
