@@ -22,7 +22,7 @@ export const NavBar = () => {
             <div>Logout</div>
           </Link>
           <br />
-          Profile
+          <Link to={"/profile"}>Profile</Link>
           <br />
           <br />
         </div>

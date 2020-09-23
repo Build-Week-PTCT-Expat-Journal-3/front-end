@@ -29,3 +29,10 @@
 .App-link {
   color: #61dafb;
 }
+
+.posts-and-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
