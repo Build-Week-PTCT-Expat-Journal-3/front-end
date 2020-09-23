@@ -1,21 +1,38 @@
+  
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import {Posts} from "./Posts";
 
-export const PostForm = () => {
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import { Button } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '70ch',
+    },
+    width: '100%',
+  },
+  input: {
+    width: '97%',
+  },
+  input2: {
+    width: '53.314%',
+  },
+  input3: {
+    width: '40%',
+  },
+  button: {
+    width: '97%',
+  }
+}));
+
+export const PostForm = (props) => {
   const [posts, setPosts] = useState([]);
   const { id } = useParams();
-  const [newStory, setNewStory] = useState({
-    title: "",
-    date: "",
-    location: "",
-    description: "",
-    image_url: ""
-  });
-
-
-
+  const classes = useStyles();
 
   useEffect(() => {
     const getData = () => {
@@ -29,7 +46,7 @@ export const PostForm = () => {
         .catch((err) => console.log(err));
     };
     getData();
-  }, [setPosts, setNewStory]);
+  }, [setPosts]);
 
   const addPost = (newPost) => {
     axiosWithAuth()
@@ -37,6 +54,7 @@ export const PostForm = () => {
       .then((res) => {
         console.log(res, "new post");
         setPosts([...posts, newPost]);
+        setTimeout(function(){ window.location.href = window.location.href; }, 1000);
       });
   };
 
@@ -45,7 +63,14 @@ export const PostForm = () => {
     addPost(newStory);
   };
 
- 
+  const [newStory, setNewStory] = useState({
+    title: "",
+    date: "",
+    location: "",
+    description: "",
+    image_url: ""
+  });
+
   const inputChange = (e) => {
     setNewStory({
       ...newStory,
@@ -56,78 +81,61 @@ export const PostForm = () => {
   return (
     <>
       <div>
-        <h4>ADD POST:</h4>
-        <br></br>
-        <br></br>
-        <form onSubmit={posting}>
-          <label>
-            <input
-              name="title"
-              onChange={inputChange}
-              type="text"
-              placeholder="Title"
-            />
-          </label>
-          <br></br>
-          <br></br>
-          <br></br>
-          <label>
-            <input
-              name="date"
-              onChange={inputChange}
-              type="text"
-              placeholder="Date"
-            />
-          </label>
-          <br></br>
-          <br></br>
-          <br></br>
-          <label>
-            <input
-              name="location"
-              onChange={inputChange}
-              type="text"
-              placeholder="Location"
-            />
-          </label>
-          <br></br>
-          <br></br>
-          <br></br>
-          <label>
-            <input
-              name="description"
-              onChange={inputChange}
-              type="text"
-              placeholder="Post"
-            />
-          </label>
-          <br></br>
-          <br></br>
-          <br></br>
-          <label>
-            <input
-              name="image_url"
-              onChange={inputChange}
-              type="text"
-              placeholder="Image"
-            />
-          </label>
-          <br></br>
-          <br></br>
-          <br></br>
-          <button>Add Post</button>
-          <br></br>
-          <br></br>
+        <h2>Add Post</h2>
+        <form onSubmit={posting} className={classes.root} noValidate autoComplete="off">
+          <TextField 
+            id="outlined-basic" 
+            className={classes.input}
+            label="Image Link" 
+            variant="outlined" 
+            name="image_url"
+            onChange={inputChange}
+          />
+          <TextField 
+            id="outlined-basic" 
+            className={classes.input}
+            label="Location" 
+            variant="outlined"
+            name="location"
+            onChange={inputChange}
+          />
+          <br/>
+          <TextField 
+            id="outlined-basic" 
+            className={classes.input2}
+            label="Title" 
+            variant="outlined"
+            name="title"
+            onChange={inputChange}
+          />
+          <TextField 
+            id="outlined-basic" 
+            className={classes.input3}
+            label="Date" 
+            variant="outlined"
+            name="date"
+            onChange={inputChange}
+          />
+          <br/>
+          <TextField 
+            id="outlined-basic" 
+            className={classes.input}
+            label="Describe Event" 
+            variant="outlined" 
+            name="description"
+            onChange={inputChange}
+          />
+          <br/>
+          <Button 
+            variant='contained' 
+            color='primary' 
+            className={classes.button}
+            onClick={posting}
+          >
+            Post
+          </Button>
         </form>
-        <br></br>
-        <br></br>
-        <div>
-          {posts.map((post) => (
-            <Posts key={post.id} post={post} />
-          ))}
-        </div>
       </div>
     </>
   );
 };
-

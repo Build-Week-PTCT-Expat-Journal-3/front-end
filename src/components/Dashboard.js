@@ -21,9 +21,12 @@ export const Dashboard = () => {
   }, [setPosts]);
 
   return (
-    <div>
+
+    <div className='posts-and-form'>
+
       <Link to={"/protected"}>Dashboard</Link>
       <br />
+
       <PostForm />
       <br />
     </div>
