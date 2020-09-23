@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import { Link, useHistory } from 'react-router-dom';
 import {GlobalContext} from "../contexts/GlobalState";
+import { Button, Container, TextField } from '@material-ui/core';
 
 const formSchema = yup.object().shape({
     username: yup.string().required('Enter your username'),
@@ -75,34 +76,94 @@ export const Login = () => {
     return (
 
         <div>
-            <form onSubmit={formSubmit}>
-                <label htmlFor='username'>
-                    <input 
-                        type='text'
-                        name='username'
-                        id='username'
-                        placeholder = 'Username'
-                        value={formState.username} 
-                        onChange={inputChange} 
-                    />
-                    {errorState.username.length > 0 ? (<p>{errorState.username}</p>) : null}
-                </label>
-                <label htmlFor='password'>
-                    <input 
-                        type='password' 
-                        name='password'
-                        id='password'
-                        placeholder= 'Password'
-                        value={formState.password} 
-                        onChange={inputChange} 
-                    />
-                    {errorState.password.length > 0 ? (<p>{errorState.password}</p>) : null}
-                </label>
-                <button disabled={buttonDisable}>Login</button>
-            </form>
-            <div>
+            <Container maxWidth='xs'>
+                <form onSubmit={formSubmit}>
+                        <TextField 
+                            type='text'
+                            name='username'
+                            label= 'Username'
+                            value={formState.username} 
+                            onChange={inputChange}
+                            error={errorState.username.length > 0 ? true : null}
+                            helperText={errorState.username.length > 0 ? (errorState.username) : null} 
+                        />
+                        <TextField 
+                            type='password' 
+                            name='password'
+                            id='password'
+                            label= 'Password'
+                            value={formState.password} 
+                            onChange={inputChange}
+                            error={errorState.password.length > 0 ? true : null}
+                            helperText={errorState.password.length > 0 ? (errorState.password) : null}
+                        />
+                    <Button type='submit' variant='contained' disabled={buttonDisable}>Login</Button>
+                </form>
+            </Container>
+            <Container maxWidth='xs'>                
                 <p>Don't have an account? <Link to="./register">Sign Up</Link></p>
-            </div>
+            </Container>
         </div>
     )
 }
+
+
+// FOR REFERENCE
+// 
+// const styles = {
+
+//     h1: {
+//         margin: '0',
+//         justifyContent: 'center',
+//         textAlign: 'center',
+//         padding: '0 10%',
+//         fontSize: '4rem',
+//         fontFamily: 'Brush Script MT, Brush Script Std, cursive'
+        
+//     },
+
+//     h2: {
+//         justifyContent: 'center',
+//         padding: '0 10%',
+//         textAlign: 'center',
+//         fontSize: '1.25rem',
+//         color: 'darkgrey',
+//     },
+
+//     registerContainer: {
+//         display: 'flex',
+//         flexDirection: 'column',
+//         maxWidth: '350px',
+//         padding: '2%',
+//         border: '1px solid lightgrey',
+//         backgroundColor: 'mintcream'
+
+//     },
+
+//     registerForm: {
+//         display: 'flex',
+//         flexDirection: 'column',
+//         justifyContent: 'center',
+//         padding: '0 10%'
+//     },
+
+//     registerFooter: {
+//         display: 'flex',
+//         justifyContent: 'center',
+//         marginTop: '1%',
+//         padding: '.5%',
+//         maxWidth: '350px',
+//         border: '1px solid lightgrey',
+//         backgroundColor: 'mintcream',
+
+//     },
+
+//     link: {
+//         textDecoration: 'none'
+//     },
+
+//     button: {
+//         width: '100%',
+
+//     }
+// }
