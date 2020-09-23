@@ -151,24 +151,29 @@ export const Register = () => {
 const styles = {
 
     h1: {
-        margin: '.67em 0 0 0',
+        margin: '0',
         justifyContent: 'center',
         textAlign: 'center',
-        padding: '0 20%'
+        padding: '0 10%',
+        fontSize: '4rem',
+        fontFamily: 'Brush Script MT, Brush Script Std, cursive'
         
     },
 
     h2: {
         justifyContent: 'center',
-        padding: '0 20%',
+        padding: '0 10%',
         textAlign: 'center',
-        color: 'lightgrey',
+        fontSize: '1.25rem',
+        color: 'darkgrey',
     },
 
     registerContainer: {
         display: 'flex',
         flexDirection: 'column',
-        padding: '1%',
+        maxWidth: '350px',
+        padding: '2%',
+        border: '1px solid lightgrey',
         backgroundColor: 'mintcream'
 
     },
@@ -177,7 +182,7 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        padding: '0 20%'
+        padding: '0 10%'
     },
 
     registerFooter: {
@@ -185,6 +190,8 @@ const styles = {
         justifyContent: 'center',
         marginTop: '1%',
         padding: '.5%',
+        maxWidth: '350px',
+        border: '1px solid lightgrey',
         backgroundColor: 'mintcream',
 
     },
