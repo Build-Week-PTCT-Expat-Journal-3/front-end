@@ -19,7 +19,6 @@ function App() {
 
   useEffect(() => {
     const getData = () => {
-      const token = window.localStorage.getItem("token");
       axiosWithAuth()
         .get("/story")
         .then((response) => {
