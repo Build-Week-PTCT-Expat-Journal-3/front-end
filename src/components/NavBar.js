@@ -1,14 +1,41 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useContext} from 'react';
+import {Link, useHistory} from 'react-router-dom';
+import {GlobalContext} from "../App";
+
 
 export const NavBar = () => {
-    return (
-        <div className='navbar'>
-            NavBar
+    const {push} = useHistory();
+    const {isLogged, setLoggedState} = useContext(GlobalContext)
 
-            <Link to='/'>Login</Link>
-            <Link to='/register'>Sign Up</Link>
-            <Link to='/dashboard'>Home</Link>
+    return isLogged ? (
+        <nav>
+        <div>
+          <Link
+            onClick={(e) => {
+              e.preventDefault();
+              localStorage.removeItem("token");
+              setLoggedState(false);
+              push("/");
+            }}
+            to={"/login"}
+          >
+            <div>Logout</div>
+          </Link>
+          <br />
+          Profile
+          <br />
+          <br />
         </div>
+      </nav>
+    ) : (
+      <nav>
+        <div>
+          <Link to={"/register"}>Register</Link>
+        </div>
+        <br />
+        <div>
+          <Link to={"/login"}>Login</Link>
+        </div>
+      </nav>
     )
 }
