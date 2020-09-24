@@ -3,7 +3,6 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Container, TextField, Button } from '@material-ui/core';
-import { findByLabelText } from '@testing-library/react';
 
 const formSchema = yup.object().shape({
     username: yup.string().required('Enter a username'),
