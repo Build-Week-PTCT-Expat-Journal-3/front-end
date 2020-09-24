@@ -139,7 +139,7 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         maxWidth: '350px',
-        padding: '1% 2% 2% 2%',
+        padding: '2%',
         border: '1px solid lightgrey',
         backgroundColor: 'mintcream'
 
