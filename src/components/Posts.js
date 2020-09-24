@@ -45,8 +45,13 @@ const useStyles = makeStyles((theme) => ({
     width: '45.5%',
     marginLeft: '1.5%',
   },
+  cancelButton: {
+    width: '30%',
+    marginLeft: '5%',
+    marginBottom: '5%',
+  },
   button: {
-    width: '90%',
+    width: '55%',
     marginLeft: '5%',
     marginBottom: '5%',
   }
@@ -71,9 +76,12 @@ export const Posts = (props) => {
   const deletePost = () => {
     axiosWithAuth()
       .delete(`/story/${id}`)
+      .then(res => {
+        console.log(res);
+        setTimeout(function(){
+          window.location.reload(true)}, 300);
+      })
       .catch(err => console.log(err));
-    setTimeout(function(){
-      window.location.reload()}, 300);
   };
 
   const updatePost = () => {
@@ -82,7 +90,7 @@ export const Posts = (props) => {
       .then(res => {
         console.log(res);
         setTimeout(function(){ 
-          window.location.reload(); }, 300);
+          window.location.reload(true); }, 300);
       })
       .catch(err => console.log('Error: ', err));
   };
@@ -180,6 +188,14 @@ export const Posts = (props) => {
           defaultValue={updateStory.description}
         />
         <br/>
+        <Button 
+          variant='contained' 
+          color='secondary' 
+          className={classes.cancelButton}
+          onClick={() => setEdit(!true)}
+        >
+          Cancel
+        </Button>
         <Button 
           variant='contained' 
           color='primary' 
