@@ -31,6 +31,7 @@
 }
 
 .posts-and-form {
+  padding-top: 7%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,6 +55,10 @@ nav {
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid lightgray;
+  /* overflow: hidden; */
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 nav div:first-child {
   margin-left: 5%;
