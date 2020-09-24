@@ -28,7 +28,7 @@ function App() {
         .catch((err) => console.log(err));
     };
     getData();
-  }, [posts]);
+  }, []);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
