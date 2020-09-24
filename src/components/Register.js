@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { Container, TextField, Button } from '@material-ui/core';
-import { findByLabelText } from '@testing-library/react';
 
 const formSchema = yup.object().shape({
     username: yup.string().required('Enter a username'),
@@ -13,7 +12,7 @@ const formSchema = yup.object().shape({
 })
 
 export const Register = () => {
-
+    const {push} = useHistory();
     const [buttonDisable, setButtonDisable] = useState(true);
     
     const [formState, setFormState] = useState({
@@ -66,10 +65,11 @@ export const Register = () => {
     const formSubmit = (e) => {
         e.preventDefault();
         console.log('User Registration Successful');
-        axios
-            .post('https://expat-journalp16.herokuapp.com/api/auth/register', formState)
+        axiosWithAuth()
+            .post('auth/register', formState)
             .then( res => {
                 console.log(res);
+                push("/login")
                 setUser([...user, res.data]);
                 setFormState({
                     username: '',
