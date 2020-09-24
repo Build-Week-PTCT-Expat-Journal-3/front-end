@@ -16,7 +16,7 @@ export const NavBar = () => {
         <div>
           <a href='https://upbeat-liskov-426f57.netlify.app/'>
             <Button variant="contained" color="primary">
-              Profile
+              About Us
             </Button>
           </a>
           <Link
