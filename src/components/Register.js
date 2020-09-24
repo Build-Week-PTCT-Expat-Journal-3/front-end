@@ -3,6 +3,8 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Container, TextField, Button } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
+
 
 const formSchema = yup.object().shape({
     username: yup.string().required('Enter a username'),
@@ -12,7 +14,7 @@ const formSchema = yup.object().shape({
 })
 
 export const Register = () => {
-
+    const {push} = useHistory();
     const [buttonDisable, setButtonDisable] = useState(true);
     
     const [formState, setFormState] = useState({
@@ -76,6 +78,7 @@ export const Register = () => {
                     firstname: '',
                     location: ''
                 })
+                push("/login")
             })
             .catch( err => console.log(err));
     };
