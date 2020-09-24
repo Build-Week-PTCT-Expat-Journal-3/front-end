@@ -24,7 +24,6 @@ const useStyles = makeStyles({
 export const Posts = (props) => {
   const { title, date, location, description, image_url, id } = props.post;
   const classes = useStyles();
-  console.log(id);
 
   const deletePost = () => {
     axiosWithAuth()
