@@ -1,4 +1,5 @@
 import React from 'react';
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -21,8 +22,15 @@ const useStyles = makeStyles({
 });
 
 export const Posts = (props) => {
-  const { title, date, location, description, image_url } = props.post;
+  const { title, date, location, description, image_url, id } = props.post;
   const classes = useStyles();
+
+  const deletePost = () => {
+    axiosWithAuth()
+      .delete(`/story/${id}`)
+      .catch(err => console.log(err));
+    setTimeout(function(){ window.location.href = window.location.href; }, 1000);
+  };
 
   return (
     <Card className={classes.root}>
@@ -53,7 +61,7 @@ export const Posts = (props) => {
         <Button size="small" color="primary">
           Edit
         </Button>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={deletePost}>
           Delete
         </Button>
       </CardActions>
