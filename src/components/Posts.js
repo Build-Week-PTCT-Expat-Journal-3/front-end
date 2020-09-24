@@ -72,7 +72,8 @@ export const Posts = (props) => {
     axiosWithAuth()
       .delete(`/story/${id}`)
       .catch(err => console.log(err));
-    setTimeout(function(){ window.location.href = window.location.href; }, 1000);
+    setTimeout(function(){
+      window.location.reload()}, 300);
   };
 
   const updatePost = () => {
@@ -80,7 +81,8 @@ export const Posts = (props) => {
       .put(`/story/${id}`, updateStory)
       .then(res => {
         console.log(res);
-        setTimeout(function(){ window.location.href = window.location.href; }, 1000);
+        setTimeout(function(){ 
+          window.location.reload(); }, 300);
       })
       .catch(err => console.log('Error: ', err));
   };
