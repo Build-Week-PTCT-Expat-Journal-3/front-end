@@ -2,14 +2,23 @@ import React, {useContext} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import {GlobalContext} from "../App";
 
+import Button from '@material-ui/core/Button';
 
 export const NavBar = () => {
     const {push} = useHistory();
-    const {isLogged, setLoggedState} = useContext(GlobalContext)
+    const {setLoggedState} = useContext(GlobalContext)
 
-    return isLogged ? (
-        <nav>
+    return (
+      <nav>
         <div>
+          <h1>Expat Journal</h1>
+        </div>
+        <div>
+          <a href='https://upbeat-liskov-426f57.netlify.app/'>
+            <Button variant="contained" color="primary">
+              About Us
+            </Button>
+          </a>
           <Link
             onClick={(e) => {
               e.preventDefault();
@@ -19,22 +28,10 @@ export const NavBar = () => {
             }}
             to={"/login"}
           >
-            <div>Logout</div>
+            <Button variant="contained" color="secondary">
+              Logout
+            </Button>
           </Link>
-          <br />
-          Profile
-          <br />
-          <br />
-        </div>
-      </nav>
-    ) : (
-      <nav>
-        <div>
-          <Link to={"/register"}>Register</Link>
-        </div>
-        <br />
-        <div>
-          <Link to={"/login"}>Login</Link>
         </div>
       </nav>
     )

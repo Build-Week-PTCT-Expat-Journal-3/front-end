@@ -1,36 +1,22 @@
-import React, { useState, useEffect } from "react";
-import {Posts} from "./Posts";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import React from "react";
+import {PostForm} from './PostForm';
+import {NavBar} from "./NavBar";
 
-function Dashboard() {
-  const [posts, setPosts] = useState([]);
+export const Dashboard = () => {
 
-  useEffect(() => {
-    const getPost = () => {
-      //get request
-      //add the token to the authorization header
-      //filter data
-      const token = window.localStorage.getItem("token");
-      axiosWithAuth()
-        .get("/story")
-        .then((response) => {
-          setPosts(response.data);
-        })
-        .catch((err) => console.log(err));
-    };
-    getPost();
-  }, [setPosts]);
 
   return (
-    <div>
-      Dashboard
+    <>
+    <NavBar/>
+    <div className='posts-and-form'>
+<br/>
+<br/>
+<br/>
+<br/>
+
+      <PostForm />
       <br />
-      <br />
-      {posts.map((post) => (
-        <Posts key={post.id} post={post} />
-      ))}
     </div>
+    </>
   );
 }
-
-export default Dashboard;
