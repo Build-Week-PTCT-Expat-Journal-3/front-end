@@ -29,7 +29,7 @@ function App() {
         .catch((err) => console.log(err));
     };
     getData();
-  }, [setPosts]);
+  }, [setPosts, setLoggedState]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
