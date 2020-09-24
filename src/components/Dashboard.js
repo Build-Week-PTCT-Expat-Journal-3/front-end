@@ -1,20 +1,22 @@
 import React from "react";
-import {Link} from 'react-router-dom';
 import {PostForm} from './PostForm';
-
+import {NavBar} from "./NavBar";
 
 export const Dashboard = () => {
 
 
   return (
-
+    <>
+    <NavBar/>
     <div className='posts-and-form'>
-
-      <Link to={"/protected"}>Dashboard</Link>
-      <br />
+<br/>
+<br/>
+<br/>
+<br/>
 
       <PostForm />
       <br />
     </div>
+    </>
   );
 }

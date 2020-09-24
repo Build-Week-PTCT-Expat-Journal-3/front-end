@@ -6,9 +6,9 @@ import Button from '@material-ui/core/Button';
 
 export const NavBar = () => {
     const {push} = useHistory();
-    const {isLogged, setLoggedState} = useContext(GlobalContext)
+    const {setLoggedState} = useContext(GlobalContext)
 
-    return isLogged ? (
+    return (
       <nav>
         <div>
           <h1>Expat Journal</h1>
@@ -32,16 +32,6 @@ export const NavBar = () => {
               Logout
             </Button>
           </Link>
-        </div>
-      </nav>
-    ) : (
-      <nav>
-        <div>
-          <Link to={"/register"}>Register</Link>
-        </div>
-        <br />
-        <div>
-          <Link to={"/login"}>Login</Link>
         </div>
       </nav>
     )

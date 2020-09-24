@@ -3,12 +3,12 @@ import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import './App.css';
 
 import {PrivateRoute} from "./utils/PrivateRoute";
-import {NavBar} from './components/NavBar';
 import {Login} from './components/Login';
 import {Dashboard} from './components/Dashboard';
 import {Register} from './components/Register';
 import {Profile} from './components/Profile';
 import { axiosWithAuth } from './utils/axiosWithAuth';
+import { NavBar } from './components/NavBar';
 
 export const GlobalContext = createContext();
 
@@ -42,12 +42,12 @@ function App() {
 
   return (
     <GlobalContext.Provider value={{isLogged, setLoggedState, posts, setPosts}}>
-      <NavBar />
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
             <Redirect to="/protected" />
           </Route>
+          <Route exact path="/navbar" component={NavBar}/>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <PrivateRoute exact path="/protected" component={Dashboard} />
