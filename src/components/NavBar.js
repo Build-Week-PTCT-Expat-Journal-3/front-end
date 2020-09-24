@@ -14,11 +14,11 @@ export const NavBar = () => {
           <h1>Expat Journal</h1>
         </div>
         <div>
-          <Link to={"/profile"}>
+          <a href='https://upbeat-liskov-426f57.netlify.app/'>
             <Button variant="contained" color="primary">
               Profile
             </Button>
-          </Link>
+          </a>
           <Link
             onClick={(e) => {
               e.preventDefault();
