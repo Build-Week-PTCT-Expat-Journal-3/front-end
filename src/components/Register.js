@@ -83,7 +83,7 @@ export const Register = () => {
     return (
         <div>
             <Container maxWidth='xs' style={styles.registerContainer}>
-                <h1 style={styles.h1}>Expat Journal</h1>
+                <h1 style={styles.h1}><a href='https://upbeat-liskov-426f57.netlify.app/' style={styles.link}>Expat Journal</a></h1>
                 <h2 style={styles.h2}>Sign up to share your memories with friends and family</h2>
                 <form onSubmit={formSubmit} style={styles.registerForm}>
                         <TextField 
